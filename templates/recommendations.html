@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block title %}Resources | SkillPathAI{% endblock %}
+
+{% block content %}
+<section class="page-heading">
+    <p class="eyebrow">KEEP EXPLORING</p>
+    <h1>Learning Resources</h1>
+    <p>Choose a topic and start learning with these external resources.</p>
+</section>
+
+{% for topic, links in resources.items() %}
+    <section class="section">
+        <h2>{{ topic|title }}</h2>
+        <div class="resource-list">
+            {% for resource in links %}
+                <a class="resource"
+                   href="{{ resource['url'] }}"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                    {{ resource['name'] }} ↗
+                </a>
+            {% endfor %}
+        </div>
+    </section>
+{% endfor %}
+
+<section class="section">
+    <h2>Project ideas</h2>
+    <div class="grid">
+        {% for topic, ideas in projects.items() %}
+            <article class="card">
+                <h3>{{ topic|title }}</h3>
+                <ul>
+                    {% for idea in ideas %}
+                        <li>{{ idea }}</li>
+                    {% endfor %}
+                </ul>
+            </article>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}

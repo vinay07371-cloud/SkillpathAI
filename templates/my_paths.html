@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block title %}My Paths | SkillPathAI{% endblock %}
+
+{% block content %}
+<section class="page-heading">
+    <p class="eyebrow">YOUR SAVED PLANS</p>
+    <h1>My Learning Paths</h1>
+    <p>Continue learning or remove a path you no longer need.</p>
+</section>
+
+{% if path_items %}
+    <div class="grid">
+        {% for item in path_items %}
+            <article class="card">
+                <span class="tag">{{ item.path['level'] }}</span>
+                <h2>{{ item.path['goal'] }}</h2>
+
+                <p class="muted">
+                    {{ item.completed_count }} of {{ item.topic_count }} topics completed
+                </p>
+
+                <div class="progress-track">
+                    <div class="progress-fill"
+                         style="width: {{ item.progress }}%"></div>
+                </div>
+                <p>{{ item.progress }}% complete</p>
+
+                <a class="button-link"
+                   href="{{ url_for('view_path', path_id=item.path['id']) }}">
+                    Open Path
+                </a>
+
+                <form action="{{ url_for('delete_path', path_id=item.path['id']) }}"
+                      method="POST"
+                      onsubmit="return confirm('Delete this learning path?');">
+                    <button class="button-danger" type="submit">
+                        Delete Path
+                    </button>
+                </form>
+            </article>
+        {% endfor %}
+    </div>
+{% else %}
+    <div class="empty-state">
+        <h2>No saved paths</h2>
+        <p>Your created learning paths will appear here.</p>
+        <a class="button-link" href="{{ url_for('home') }}">Create a Path</a>
+    </div>
+{% endif %}
+{% endblock %}

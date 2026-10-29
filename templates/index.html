@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block title %}Home | SkillPathAI{% endblock %}
+
+{% block content %}
+<section class="hero">
+    <p class="eyebrow">YOUR PERSONAL LEARNING PLANNER</p>
+    <h1>Build skills.<br>One step at a time.</h1>
+    <p>Create a learning path based on your goal and current level.</p>
+
+    <form action="{{ url_for('generate') }}" method="POST" class="panel">
+        <label for="goal">What do you want to learn?</label>
+        <input
+            id="goal"
+            name="goal"
+            placeholder="e.g. Python, Web Development, Java"
+            maxlength="100"
+            required
+        >
+
+        <label for="level">Choose your level</label>
+        <select id="level" name="level">
+            <option>Beginner</option>
+            <option>Intermediate</option>
+            <option>Advanced</option>
+        </select>
+
+        <button type="submit">Create My Learning Path</button>
+    </form>
+</section>
+
+<section class="section">
+    <h2>How it works</h2>
+    <div class="grid">
+        <article class="card">
+            <h3>01. Choose a goal</h3>
+            <p>Tell SkillPathAI which skill you want to develop.</p>
+        </article>
+        <article class="card">
+            <h3>02. Follow topics</h3>
+            <p>Use the suggested topics to structure your learning.</p>
+        </article>
+        <article class="card">
+            <h3>03. Track progress</h3>
+            <p>Mark topics complete and see your progress.</p>
+        </article>
+    </div>
+</section>
+{% endblock %}

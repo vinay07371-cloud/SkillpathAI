@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block title %}Not Found | SkillPathAI{% endblock %}
+
+{% block content %}
+<section class="empty-state">
+    <p class="eyebrow">ERROR 404</p>
+    <h1>Page not found</h1>
+    <p>This page or learning path doesn't exist.</p>
+    <a class="button-link" href="{{ url_for('home') }}">Return Home</a>
+</section>
+{% endblock %}

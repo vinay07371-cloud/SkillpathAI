@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block title %}Generate Path | SkillPathAI{% endblock %}
+
+{% block content %}
+
+<section class="page-heading">
+    <span class="eyebrow">PERSONALISE YOUR LEARNING</span>
+    <h1>Create a Learning Path</h1>
+    <p>Select a skill and difficulty level.</p>
+</section>
+
+<form action="{{ url_for('generate') }}"
+      method="POST"
+      class="form-card">
+
+    <div class="form-group">
+        <label for="goal">Skill</label>
+
+        <select id="goal" name="goal" required>
+            <option value="">Choose a skill</option>
+
+            {% for skill in skills %}
+                <option value="{{ skill }}">{{ skill }}</option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="level">Level</label>
+
+        <select id="level" name="level" required>
+            <option value="">Choose your level</option>
+
+            {% for level in levels %}
+                <option value="{{ level }}">{{ level }}</option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <button class="button primary-button full-width" type="submit">
+        Generate Path →
+    </button>
+</form>
+
+{% endblock %}

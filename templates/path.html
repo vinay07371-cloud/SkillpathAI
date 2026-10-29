@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+{% block title %}Learning Path | SkillPathAI{% endblock %}
+
+{% block content %}
+<section class="page-heading">
+    <p class="eyebrow">YOUR LEARNING PLAN</p>
+    <h1>{{ path['goal'] }}</h1>
+    <span class="tag">{{ path['level'] }}</span>
+</section>
+
+<section class="panel">
+    <div class="section-heading">
+        <h2>Your Progress</h2>
+        <strong>{{ progress }}%</strong>
+    </div>
+
+    <div class="progress-track">
+        <div class="progress-fill"
+             style="width: {{ progress }}%"></div>
+    </div>
+
+    <form action="{{ url_for('save_progress', path_id=path['id']) }}"
+          method="POST">
+
+        <h2>Learning Topics</h2>
+        <p class="muted">Tick completed topics and save your progress.</p>
+
+        <div class="topic-list">
+            {% for topic in topics %}
+            <label class="topic">
+                <input type="checkbox"
+                       name="completed"
+                       value="{{ loop.index0 }}"
+                       {% if loop.index0|string in completed %}checked{% endif %}>
+                <span>{{ topic }}</span>
+            </label>
+            {% endfor %}
+        </div>
+
+        <button type="submit">Save Progress</button>
+    </form>
+</section>
+
+<section class="section">
+    <h2>Project Ideas</h2>
+    <div class="grid">
+        {% for project in projects %}
+        <article class="card">
+            <h3>{{ project }}</h3>
+            <p>Build this project to practise your skills.</p>
+        </article>
+        {% endfor %}
+    </div>
+</section>
+
+<section class="section">
+    <h2>Learning Resources</h2>
+
+    {% if resources %}
+    <div class="resource-list">
+        {% for resource in resources %}
+        <a class="resource"
+           href="{{ resource['url'] }}"
+           target="_blank"
+           rel="noopener noreferrer">
+            {{ resource['name'] }} ↗
+        </a>
+        {% endfor %}
+    </div>
+    {% else %}
+    <p class="muted">No specific resources are available for this goal yet.</p>
+    <a class="button-link"
+       href="{{ url_for('recommendations') }}">Explore Resources</a>
+    {% endif %}
+</section>
+
+<a href="{{ url_for('my_paths') }}">← Back to My Paths</a>
+{% endblock %}

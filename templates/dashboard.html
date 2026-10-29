@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% block title %}Dashboard | SkillPathAI{% endblock %}
+
+{% block content %}
+<section class="page-heading">
+    <p class="eyebrow">YOUR OVERVIEW</p>
+    <h1>Dashboard</h1>
+    <p>Keep track of your learning journey.</p>
+</section>
+
+<div class="grid stats">
+    <article class="card">
+        <p class="muted">Learning Paths</p>
+        <h2>{{ total_paths }}</h2>
+    </article>
+    <article class="card">
+        <p class="muted">Completed Topics</p>
+        <h2>{{ completed_topics }} / {{ total_topics }}</h2>
+    </article>
+    <article class="card">
+        <p class="muted">Overall Progress</p>
+        <h2>{{ percentage }}%</h2>
+        <div class="progress-track">
+            <div class="progress-fill" style="width: {{ percentage }}%"></div>
+        </div>
+    </article>
+</div>
+
+<section class="section">
+    <div class="section-heading">
+        <h2>Recent learning paths</h2>
+        <a href="{{ url_for('my_paths') }}">View all</a>
+    </div>
+
+    {% if paths %}
+        <div class="grid">
+            {% for path in paths[:3] %}
+                <article class="card">
+                    <span class="tag">{{ path['level'] }}</span>
+                    <h3>{{ path['goal'] }}</h3>
+                    <a class="button-link"
+                       href="{{ url_for('view_path', path_id=path['id']) }}">
+                        Continue Learning
+                    </a>
+                </article>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="empty-state">
+            <h3>No learning paths yet</h3>
+            <p>Create your first learning path to get started.</p>
+            <a class="button-link" href="{{ url_for('home') }}">Create a Path</a>
+        </div>
+    {% endif %}
+</section>
+{% endblock %}
